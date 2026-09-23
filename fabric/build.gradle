@@ -1,0 +1,32 @@
+plugins {
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+    // Include common module correctly
+	implementation project(":common")
+
+	implementation "dev.isxander:yet-another-config-lib:${project.yacl_version}"
+	compileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+	runtimeOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+}
+
+tasks.named("compileJava").configure {
+    source(project(":common").sourceSets.main.allSource)
+}
+
+processResources {
+    from project(":common").sourceSets.main.resources
+
+	def version = rootProject.version
+	inputs.property "version", version
+	filesMatching("fabric.mod.json") {
+		expand "version": version
+	}
+}
+
+base.archivesName = "locator-tweaks-fabric-${project.minecraft_version}"

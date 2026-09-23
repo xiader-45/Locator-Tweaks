@@ -2,95 +2,110 @@
 
 # 🧭 Locator Tweaks
 
-**Turn Minecraft's locator bar into the ultimate survival compass.**  
-Custom waypoints, death tracking, Nether portals, player heads, cardinal directions, and dynamic tooltips — clean, simple, and intuitive.
+**Turn Minecraft's locator bar into the ultimate survival navigation compass.**  
+No bulky mini-map circles. No cluttered screens. Just clean, vanilla-friendly waypoints, death tracking, portals, player skins, and smart tooltips.
 
-[![Fabric](https://img.shields.io/badge/Modloader-Fabric-blue?style=for-the-badge&logo=fabric)](https://fabricmc.net/)
-[![Minecraft](https://img.shields.io/badge/Minecraft-26.2-green?style=for-the-badge&logo=minecraft)](https://minecraft.net/)
-[![YACL](https://img.shields.io/badge/Requires-YACL%20v3-orange?style=for-the-badge)](https://modrinth.com/mod/yacl)
-[![License](https://img.shields.io/badge/License-CC0--1.0-purple?style=for-the-badge)](LICENSE)
+[![Fabric](https://img.shields.io/badge/Modloader-Fabric-3b82f6?style=for-the-badge&logo=fabric&logoColor=white)](https://fabricmc.net/)
+[![Minecraft](https://img.shields.io/badge/Minecraft-26.2-22c55e?style=for-the-badge&logo=minecraft&logoColor=white)](https://minecraft.net/)
+[![YACL](https://img.shields.io/badge/Requires-YACL%20v3-f97316?style=for-the-badge)](https://modrinth.com/mod/yacl)
+[![License](https://img.shields.io/badge/License-CC0--1.0-a855f7?style=for-the-badge)](LICENSE)
 
-*100% Client-Side. Works on any vanilla server, Realm, or singleplayer world.*
+*Works 100% on any vanilla server, Realm, or singleplayer world.*
 
 </div>
 
 ---
 
-## 🌟 What does this mod do?
+### ✨ Why Locator Tweaks?
 
-In vanilla Minecraft 1.21+, the locator bar only shows basic dots for other players. **Locator Tweaks** turns this compass bar into a full navigation hub for everything you care about: your base, your death location, portals, and your friends.
+Vanilla Minecraft introduced the locator bar for player tracking, but left it underutilized. **Locator Tweaks** expands this subtle bar into an essential navigation tool for every survival adventurer:
 
----
-
-## 📍 Custom Waypoints
-Mark your base, mineshafts, villages, or mob spawners directly on your compass bar.
-* **Quick Create (`B`):** Press **`B`** anywhere in your world to drop a pin at your feet. Pick a name and a color — done!
-* **10 Vibrant Colors:** Red, gold, green, cyan, purple, and more.
-* **Waypoints Menu (`U`):** Press **`U`** to see all your pins in a clean list. Search by name, toggle visibility on/off, star your favorites, or edit coordinates.
-* **Saved Per World:** Your singleplayer waypoints won't mix with your multiplayer servers. Each world and server has its own saved list.
+* 📍 **Zero Screen Clutter** — Say goodbye to heavy minimap radars that cover your screen. All navigation stays cleanly tucked into the HUD bar.
+* 💀 **Never Lose Your Gear** — Automatic death waypoint marks the exact block where you perished.
+* 🚪 **Never Get Lost in the Nether** — Automatic portal memory always points back to your gateway home.
+* 👥 **Know Who is Around** — Colored dots replaced with real player skins and customizable colors.
 
 ---
 
-## 🧭 Automatic Landmarks
-Never get lost and never lose your gear again:
-* 💀 **Death Marker:** When you die, a skull icon immediately appears on your bar showing the exact distance to your dropped items.
-* 🛏️ **Bed & Home:** Always points back to your active bed or respawn anchor.
-* 🌀 **Nether Portal:** Remembers the portal you used to enter the Nether so you can easily find your way back home.
-* 🧲 **Lodestone Compasses:** Lodestone compasses show up directly on your bar as lodestone pins.
+## 🚀 Features
 
----
+### 📍 Custom Waypoints
+Mark your bases, mob spawners, caves, or portals directly on your compass bar:
+* **One-Click Pin (`B`):** Drop a waypoint at your current position instantly with a custom name and color.
+* **Waypoints Manager (`U`):** Search by name, filter by dimension, toggle visibility, star favorites, and edit coordinates.
+* **Per-World Persistence:** Waypoints are saved separately per world/server so your lists never conflict.
+* **10 Vibrant Colors:** Highlight your most important bases and mineshafts clearly.
 
-## 👥 Player Heads on Your Compass
-Tired of confusing colored dots on multiplayer servers?
-* **Real Player Heads:** Replace dots with actual player faces wearing their custom skins.
-* **Player Menu (`P`):** Press **`P`** to see everyone online. You can highlight your friends with custom colors, resize their icons, or hide players you don't want to track.
-* **Colored Outlines:** Optional glowing outline around heads to make teammates easy to spot in the dark.
+### 🧭 Automatic Survival Landmarks
+* 💀 **Death Point:** Automatically marks your last death location until you return to retrieve your items.
+* 🛏️ **Bed & World Spawn:** Shows the direct heading to your respawn bed, anchor, or world spawn.
+* 🌀 **Nether Portal Memory:** Remembers the portal you stepped through in each dimension.
+* 🧲 **Lodestone Compasses:** Automatically tracks any lodestone compass in your inventory or bundles.
 
----
+### 👤 Player Heads & Multiplayer Tools
+* **Real Skin Miniatures:** Renders actual player head faces (with outer skin layer) instead of generic square dots.
+* **Player Manager (`J`):** Browse online players, assign custom colors, adjust icon scaling, or favorite teammates.
+* **Teammate Outlines:** Crisp 1-pixel colored border around heads for instant identification.
 
-## 🔍 Hold Shift for Instant Info
-Hold **Shift** while looking around to reveal info cards above any marker on your bar:
-* **Distance & Height:** Shows how many meters away the target is and whether it is above `(+ΔY)` or below `(-ΔY)` your current height.
-* **Friend Health:** Displays teammates' remaining hearts so you know when they need help.
-* **Matching Colors:** Each card glows with the same color as the waypoint, making it effortless to tell them apart.
-* Labels automatically shift apart so they never block your view.
+### 🔍 Smart Shift Tooltips
+Hold **Shift** to inspect nearby markers with dynamic info cards:
+* **Distance & Elevation (dY):** Exact distance in meters plus height difference (`+dY` / `-dY`).
+* **Player Hearts:** Check teammates' remaining health in real time.
+* **Clean Formatting:** Info cards dynamically avoid overlapping one another.
 
----
+### 🧭 Cardinal Directions
+* Displays subtle, clean cardinal indicators (**W, E, S, N**) directly on the locator bar.
+* Always legible over any backdrop, including filled experience bars.
 
-## 🧭 Cardinal Directions & Compass
-Stay oriented anywhere in your world:
-* **8 Cardinal Points:** Shows **N, NE, E, SE, S, SW, W, NW** directly on your locator bar with clean, dedicated markers.
-* **Always Oriented:** Blends seamlessly with waypoints and player icons, keeping your heading clear at a glance.
-
----
-
-## ⚙️ Customize Your HUD
-Play your way with simple, clean settings:
-* **Top or Bottom:** Place the bar at the bottom above your hotbar, or at the top of the screen.
-* **Compass-Only Mode:** Want a more immersive survival experience? Hide the bar until you actually hold a compass in your hand.
-* **Height Arrows:** Little arrows point up or down if a point of interest is far above or below you in a cave.
-* **Keep XP Visible:** Keep your normal experience bar visible alongside the locator bar.
+### ⚙️ Deep Customization
+* **Bar Placement:** Place the bar at the bottom (above the hotbar) or at the top of the screen.
+* **Compass Requirement:** Option to only show the locator bar when actively holding a compass item.
+* **Experience Bar Modes:** Display markers overlaid on the XP bar, switch dynamically, or use a clean dedicated bar.
 
 ---
 
 ## ⌨️ Default Controls
 
-| Key | What it does |
+| Key | Action |
 | :---: | :--- |
-| **`B`** | **Create Waypoint** at your current position |
-| **`U`** | **Open Waypoints Menu** to view, edit, or hide pins |
-| **`P`** | **Open Players Menu** to customize player icons & colors |
+| **`B`** | **Create Waypoint** at your current coordinates |
+| **`U`** | **Open Waypoints List** (view, edit, star, or toggle pins) |
+| **`J`** | **Open Player Manager** (customize player colors, heads, and visibility) |
+| **`Shift`** | **Inspect Markers** (hold to reveal names, distance, height, and health) |
 
-*(You can change any of these keys anytime in Minecraft's standard Controls menu or in the mod settings).*
+*(All keybinds are fully rebindable in the standard Controls menu or mod settings).*
+
+---
+
+## 🌐 Server Compatibility
+
+* **Vanilla Servers & Realms:** Works out of the box client-side! No server installation needed.
+* **Optional Server-Side Install:** Installing on a dedicated server enables unlimited tracking range for other players beyond 332 blocks.
+
+---
+
+## 🌍 Supported Languages
+
+Locator Tweaks is translated natively into **8 languages**:
+* 🇺🇸 **English** (`en_us`)
+* 🇷🇺 **Русский** (`ru_ru`)
+* 🇺🇦 **Українська** (`uk_ua`)
+* 🇨🇳 **简体中文** (`zh_cn`)
+* 🇩🇪 **Deutsch** (`de_de`)
+* 🇪🇸 **Español** (`es_es`)
+* 🇫🇷 **Français** (`fr_fr`)
+* 🇧🇷 **Português (Brasil)** (`pt_br`)
 
 ---
 
 ## 📦 Requirements
-* **Fabric Loader** & **Fabric API**
-* **YetAnotherConfigLib (YACL v3)**
-* *(Optional)* **Mod Menu** to easily open the in-game settings screen
+
+* **[Fabric Loader](https://fabricmc.net/)** & **[Fabric API](https://modrinth.com/mod/fabric-api)**
+* **[YetAnotherConfigLib (YACL v3)](https://modrinth.com/mod/yacl)**
+* *(Optional)* **[Mod Menu](https://modrinth.com/mod/modmenu)** for in-game configuration access
 
 ---
 
-## 📜 License
-Locator Tweaks is free, open-source, and released under the **CC0-1.0 License**.
+## 📄 License
+
+Locator Tweaks is licensed under the **CC0-1.0 Universal License**. Free for any modpack.

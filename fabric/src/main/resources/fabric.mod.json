@@ -1,0 +1,42 @@
+{
+	"schemaVersion": 1,
+	"id": "locator-tweaks",
+	"version": "${version}",
+	"name": "Locator Tweaks",
+	"description": "Transforms Minecraft's locator bar into a survival navigation compass: waypoints, death & portal tracking, player heads, cardinal directions, and smart tooltips.",
+	"authors": [
+		"Xiader45"
+	],
+	"contact": {
+		"homepage": "https://github.com/xiader-45/Locator-Tweaks",
+		"sources": "https://github.com/xiader-45/Locator-Tweaks",
+		"issues": "https://github.com/xiader-45/Locator-Tweaks/issues"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/locator-tweaks/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.locatortweaks.LocatorTweaksFabric"
+		],
+		"client": [
+			"com.locatortweaks.client.LocatorTweaksClient"
+		],
+		"modmenu": [
+			"com.locatortweaks.compat.modmenu.LocatorTweaksModMenu"
+		]
+	},
+	"mixins": [
+		"locator-tweaks.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"modmenu": "*",
+		"yet_another_config_lib_v3": ">=3.9.7"
+	}
+}

@@ -1,0 +1,10 @@
+plugins {
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    
+    // We only need YACL as compileOnly to compile the config screens in common
+	compileOnly "dev.isxander:yet-another-config-lib:${project.yacl_version}"
+}

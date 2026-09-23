@@ -1,0 +1,51 @@
+plugins {
+    id "net.neoforged.moddev" version "2.0.147"
+}
+
+neoForge {
+    version = "26.3.0.10-beta"
+
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'locator_tweaks'
+        }
+        server {
+            server()
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'locator_tweaks'
+            programArgument '--nogui'
+            jvmArgument '-Xmx2G'
+            
+        }
+    }
+
+    mods {
+        "locator_tweaks" {
+            sourceSet sourceSets.main
+            sourceSet project(":common").sourceSets.main
+        }
+    }
+}
+
+dependencies {
+    implementation project(":common")
+    implementation "dev.isxander:yet-another-config-lib:${project.yacl_version_neoforge}"
+    compileOnly "org.spongepowered:mixin:0.8.5"
+    // annotationProcessor removed to avoid mapping AP errors on Mojang mappings in NeoForge
+}
+
+tasks.named("compileJava").configure {
+    source(project(":common").sourceSets.main.allSource)
+}
+
+processResources {
+    from project(":common").sourceSets.main.resources
+
+    def version = rootProject.version
+    inputs.property "version", version
+    filesMatching("META-INF/neoforge.mods.toml") {
+        expand "version": version
+    }
+}
+
+base.archivesName = "locator-tweaks-neoforge-${project.minecraft_version}"

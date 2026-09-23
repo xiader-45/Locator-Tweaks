@@ -1,0 +1,26 @@
+{
+	"required": true,
+	"package": "com.locatortweaks.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"refmap": "locator-tweaks.refmap.json",
+	"mixins": [
+		"ServerLivingEntityMixin"
+	],
+	"client": [
+		"BossHealthOverlayAccessor",
+		"ChatListenerMixin",
+		"ClientWaypointManagerMixin",
+		"DeathScreenMixin",
+		"EntityRendererMixin",
+		"HudMixin",
+		"LocatorBarMixin",
+		"PlayerTabOverlayMixin",
+		"Vec3iWaypointAccessor"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

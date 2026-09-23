@@ -8,6 +8,7 @@ import com.locatortweaks.util.LodestoneManager;
 import com.locatortweaks.util.NetherPortalManager;
 import com.locatortweaks.util.SpawnPointManager;
 import com.locatortweaks.util.WorldKeyUtil;
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -644,7 +645,7 @@ public class WaypointListScreen extends Screen {
 
         @Override
         public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-if (this.visibilityBtn.isMouseOver(event.x(), event.y())) {
+            if (this.visibilityBtn.isMouseOver(event.x(), event.y())) {
                 return this.visibilityBtn.mouseClicked(event, doubleClick);
             }
             if (this.favoriteBtn.isMouseOver(event.x(), event.y())) {
@@ -653,7 +654,8 @@ if (this.visibilityBtn.isMouseOver(event.x(), event.y())) {
             if (this.deleteBtn.isMouseOver(event.x(), event.y())) {
                 return this.deleteBtn.mouseClicked(event, doubleClick);
             }
-            if (event.button() == 0 && event.x() >= getContentX() && event.x() < this.visibilityBtn.getX() && event.y() >= getContentY() && event.y() <= getContentBottom()) {
+            boolean isLeftClick = event.button() == InputConstants.MOUSE_BUTTON_LEFT || event.button() == 0;
+            if (isLeftClick && event.x() >= getContentX() && event.x() <= getContentRight() && event.y() >= getContentY() && event.y() <= getContentBottom()) {
                 if (this.item.isCustom && !this.item.isFeatureDisabled && this.item.customWaypoint != null) {
                     Minecraft mc = Minecraft.getInstance();
                     mc.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));

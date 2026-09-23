@@ -4,16 +4,20 @@ import com.locatortweaks.config.CustomWaypoint;
 import com.locatortweaks.config.ModConfig;
 import com.locatortweaks.util.CustomWaypointManager;
 import com.locatortweaks.util.WorldKeyUtil;
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundEvents;
 
 import java.util.UUID;
 
@@ -170,12 +174,25 @@ public class WaypointEditScreen extends Screen {
                 int px = startX + i * 21;
                 if (mouseX >= px && mouseX <= px + 18) {
                     this.selectedColor = PRESET_COLORS[i];
+                    Minecraft mc = Minecraft.getInstance();
+                    if (mc != null) {
+                        mc.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+                    }
                     return true;
                 }
             }
         }
 
         return super.mouseClicked(event, doubleClick);
+    }
+
+    @Override
+    public boolean keyPressed(KeyEvent event) {
+        if (event.key() == InputConstants.KEY_RETURN || event.key() == InputConstants.KEY_NUMPADENTER) {
+            this.onSave();
+            return true;
+        }
+        return super.keyPressed(event);
     }
 
     @Override

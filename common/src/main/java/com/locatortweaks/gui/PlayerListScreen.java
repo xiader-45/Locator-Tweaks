@@ -2,6 +2,7 @@ package com.locatortweaks.gui;
 
 import com.locatortweaks.config.ModConfig;
 import com.locatortweaks.config.PlayerLocatorConfig;
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -214,8 +215,6 @@ public class PlayerListScreen extends Screen {
             this.children.add(this.resetBtn);
         }
 
-
-
         @Override
         public List<? extends GuiEventListener> children() {
             return this.children;
@@ -238,7 +237,8 @@ public class PlayerListScreen extends Screen {
                 return this.resetBtn.mouseClicked(event, isDoubleClick);
             }
 
-            if (event.button() == 0 && event.x() >= getContentX() && event.x() <= getContentRight()
+            boolean isLeftClick = event.button() == InputConstants.MOUSE_BUTTON_LEFT || event.button() == 0;
+            if (isLeftClick && event.x() >= getContentX() && event.x() <= getContentRight()
                     && event.y() >= getContentY() && event.y() <= getContentBottom()) {
                 Minecraft mc = Minecraft.getInstance();
                 mc.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
@@ -250,15 +250,13 @@ public class PlayerListScreen extends Screen {
         }
 
         @Override
-        public void extractContent(GuiGraphicsExtractor extractor, int index, int y, boolean isSelected, float partialTick) {
+        public void extractContent(GuiGraphicsExtractor extractor, int mouseX, int mouseY, boolean hovering, float partialTick) {
             int left = getContentX();
             int top = getContentY();
             int right = getContentRight();
             int height = getContentHeight();
 
-            boolean isHovered = (screen.listWidget.getHoveredEntry() == this) || isSelected;
-
-            if (isHovered) {
+            if (hovering) {
                 extractor.fill(left, top, right, top + height, 0x44FFFFFF);
                 extractor.fill(left, top, right, top + 1, 0xAAFFFFFF);
                 extractor.fill(left, top + height - 1, right, top + height, 0xAAFFFFFF);
@@ -369,4 +367,3 @@ public class PlayerListScreen extends Screen {
         }
     }
 }
-

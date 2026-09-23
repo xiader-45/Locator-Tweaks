@@ -19,13 +19,13 @@ public class LocatorTweaksKeybinds {
         "key.locator-tweaks.toggle_locator", Type.KEYBOARD, InputConstants.UNKNOWN.getValue(), CATEGORY
     );
     public static final KeyMapping openPlayersKey = new KeyMapping(
-        "key.locator-tweaks.open_players", Type.KEYBOARD, 74, CATEGORY // J
+        "key.locator-tweaks.open_players", Type.KEYBOARD, InputConstants.KEY_J, CATEGORY // J
     );
     public static final KeyMapping createWaypointKey = new KeyMapping(
-        "key.locator-tweaks.create_waypoint", Type.KEYBOARD, 66, CATEGORY // B
+        "key.locator-tweaks.create_waypoint", Type.KEYBOARD, InputConstants.KEY_B, CATEGORY // B
     );
     public static final KeyMapping openWaypointsKey = new KeyMapping(
-        "key.locator-tweaks.open_waypoints", Type.KEYBOARD, 85, CATEGORY // U
+        "key.locator-tweaks.open_waypoints", Type.KEYBOARD, InputConstants.KEY_U, CATEGORY // U
     );
 
     public static void handleKeybinds(Minecraft client) {
@@ -35,7 +35,7 @@ public class LocatorTweaksKeybinds {
                 if (config.barDisplayMode == ModConfig.BarDisplayMode.DISABLED) {
                     config.barDisplayMode = (config.lastActiveBarDisplayMode != null && config.lastActiveBarDisplayMode != ModConfig.BarDisplayMode.DISABLED)
                         ? config.lastActiveBarDisplayMode
-                        : ModConfig.BarDisplayMode.DEFAULT;
+                        : ModConfig.BarDisplayMode.XP_WITH_MARKERS;
                 } else {
                     config.lastActiveBarDisplayMode = config.barDisplayMode;
                     config.barDisplayMode = ModConfig.BarDisplayMode.DISABLED;

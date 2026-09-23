@@ -426,7 +426,7 @@ public abstract class LocatorBarMixin implements ContextualBar {
             boolean isScreenOpen = mc.gui != null && mc.gui.screen() != null;
             boolean shiftDown = !isScreenOpen
                && (
-                  (InputConstants.isKeyDown(340) || InputConstants.isKeyDown(344))
+                  (InputConstants.isKeyDown(InputConstants.KEY_LSHIFT) || InputConstants.isKeyDown(InputConstants.KEY_RSHIFT))
                      || mc.options != null && mc.options.keyShift.isDown()
                );
             boolean isTopBar = ModConfig.getInstance().locatorPosition == ModConfig.LocatorPosition.TOP;
@@ -1230,7 +1230,7 @@ public abstract class LocatorBarMixin implements ContextualBar {
          boolean isScreenOpen = mc.gui != null && mc.gui.screen() != null;
          boolean shiftDown = !isScreenOpen
             && (
-               (InputConstants.isKeyDown(340) || InputConstants.isKeyDown(344))
+               (InputConstants.isKeyDown(InputConstants.KEY_LSHIFT) || InputConstants.isKeyDown(InputConstants.KEY_RSHIFT))
                   || mc.options != null && mc.options.keyShift.isDown()
             );
 

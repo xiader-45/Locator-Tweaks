@@ -7,7 +7,7 @@ No bulky minimaps. No screen clutter. Track waypoints, your death point, Nether 
 
 [![Fabric](https://img.shields.io/badge/Modloader-Fabric-3b82f6?style=for-the-badge&logo=fabric&logoColor=white)](https://fabricmc.net/)
 [![NeoForge](https://img.shields.io/badge/Modloader-NeoForge-e06c27?style=for-the-badge&logo=neoforge&logoColor=white)](https://neoforged.net/)
-[![Minecraft](https://img.shields.io/badge/Minecraft-26.3-22c55e?style=for-the-badge&logo=minecraft&logoColor=white)](https://minecraft.net/)
+[![Minecraft](https://img.shields.io/badge/Minecraft-26.2-22c55e?style=for-the-badge&logo=minecraft&logoColor=white)](https://minecraft.net/)
 [![YACL](https://img.shields.io/badge/Requires-YACL%20v3-f97316?style=for-the-badge)](https://modrinth.com/mod/yacl)
 [![License](https://img.shields.io/badge/License-CC0--1.0-a855f7?style=for-the-badge)](LICENSE)
 
@@ -85,7 +85,7 @@ Look toward any marker and hold **`Shift`** to see:
 
 ## 📦 Requirements
 
-* **[Fabric](https://fabricmc.net/)** or **[NeoForge](https://neoforged.net/)** (Minecraft 26.3)
+* **[Fabric](https://fabricmc.net/)** or **[NeoForge](https://neoforged.net/)** (Minecraft 26.2)
 * **[Fabric API](https://modrinth.com/mod/fabric-api)** *(Fabric only)*
 * **[YetAnotherConfigLib (YACL v3)](https://modrinth.com/mod/yacl)**
 * *(Optional)* **[Mod Menu](https://modrinth.com/mod/modmenu)** for in-game settings

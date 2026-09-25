@@ -163,7 +163,7 @@ public class LodestoneManager {
         if (stack.has(DataComponents.BUNDLE_CONTENTS)) {
             BundleContents bundle = stack.get(DataComponents.BUNDLE_CONTENTS);
             if (bundle != null) {
-                bundle.itemCopies().forEach(nested -> scanStack(nested, depth + 1, found, currentDim));
+                bundle.itemCopyStream().forEach(nested -> scanStack(nested, depth + 1, found, currentDim));
             }
         }
 

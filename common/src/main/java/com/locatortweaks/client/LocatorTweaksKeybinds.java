@@ -16,16 +16,16 @@ public class LocatorTweaksKeybinds {
     public static final Category CATEGORY = Category.register(Identifier.fromNamespaceAndPath("locator-tweaks", "keybinds"));
 
     public static final KeyMapping toggleLocatorKey = new KeyMapping(
-        "key.locator-tweaks.toggle_locator", Type.KEYBOARD, InputConstants.UNKNOWN.getValue(), CATEGORY
+        "key.locator-tweaks.toggle_locator", Type.KEYSYM, InputConstants.UNKNOWN.getValue(), CATEGORY
     );
     public static final KeyMapping openPlayersKey = new KeyMapping(
-        "key.locator-tweaks.open_players", Type.KEYBOARD, InputConstants.KEY_J, CATEGORY // J
+        "key.locator-tweaks.open_players", Type.KEYSYM, InputConstants.KEY_J, CATEGORY // J
     );
     public static final KeyMapping createWaypointKey = new KeyMapping(
-        "key.locator-tweaks.create_waypoint", Type.KEYBOARD, InputConstants.KEY_B, CATEGORY // B
+        "key.locator-tweaks.create_waypoint", Type.KEYSYM, InputConstants.KEY_B, CATEGORY // B
     );
     public static final KeyMapping openWaypointsKey = new KeyMapping(
-        "key.locator-tweaks.open_waypoints", Type.KEYBOARD, InputConstants.KEY_U, CATEGORY // U
+        "key.locator-tweaks.open_waypoints", Type.KEYSYM, InputConstants.KEY_U, CATEGORY // U
     );
 
     public static void handleKeybinds(Minecraft client) {
@@ -70,7 +70,7 @@ public class LocatorTweaksKeybinds {
         if (keyCode <= 0 || keyCode == InputConstants.UNKNOWN.getValue()) {
             mapping.setKey(InputConstants.UNKNOWN);
         } else {
-            mapping.setKey(Type.KEYBOARD.getOrCreate(keyCode));
+            mapping.setKey(Type.KEYSYM.getOrCreate(keyCode));
         }
     }
 

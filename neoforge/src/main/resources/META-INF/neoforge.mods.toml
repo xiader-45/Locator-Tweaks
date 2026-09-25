@@ -20,13 +20,13 @@ config="locator-tweaks.mixins.json"
 [[dependencies.locator_tweaks]]
 modId="minecraft"
 type="required"
-versionRange="[26.3,27.0)"
+versionRange="[26.2,26.3)"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.locator_tweaks]]
 modId="yet_another_config_lib_v3"
 type="optional"
-versionRange="[3.9.7,)"
+versionRange="[3.9.6,)"
 ordering="NONE"
 side="CLIENT"

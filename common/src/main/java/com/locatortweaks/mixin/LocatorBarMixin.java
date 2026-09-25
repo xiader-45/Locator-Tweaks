@@ -19,7 +19,7 @@ import com.locatortweaks.util.LodestoneManager;
 import com.locatortweaks.util.NetherPortalManager;
 import com.locatortweaks.util.SpawnPointManager;
 import com.locatortweaks.util.WorldKeyUtil;
-import com.mojang.renderpearl.api.pipeline.RenderPipeline;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.Window;
 import java.lang.reflect.Method;
@@ -426,7 +426,7 @@ public abstract class LocatorBarMixin implements ContextualBar {
             boolean isScreenOpen = mc.gui != null && mc.gui.screen() != null;
             boolean shiftDown = !isScreenOpen
                && (
-                  (InputConstants.isKeyDown(InputConstants.KEY_LSHIFT) || InputConstants.isKeyDown(InputConstants.KEY_RSHIFT))
+                  (mc.getWindow() != null && (InputConstants.isKeyDown(mc.getWindow(), 340) || InputConstants.isKeyDown(mc.getWindow(), 344)))
                      || mc.options != null && mc.options.keyShift.isDown()
                );
             boolean isTopBar = ModConfig.getInstance().locatorPosition == ModConfig.LocatorPosition.TOP;
@@ -972,7 +972,7 @@ public abstract class LocatorBarMixin implements ContextualBar {
       method = "extractBackground",
       at = @At(
          value = "INVOKE",
-         target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"
+         target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"
       )
    )
    private void locatorTweaks$wrapLocatorBackground(
@@ -1194,7 +1194,7 @@ public abstract class LocatorBarMixin implements ContextualBar {
       method = "lambda$extractRenderState$1",
       at = @At(
          value = "INVOKE",
-         target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"
+         target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"
       )
    )
    private void locatorTweaks$wrapArrowSprite(
@@ -1218,7 +1218,7 @@ public abstract class LocatorBarMixin implements ContextualBar {
       method = "lambda$extractRenderState$1",
       at = @At(
          value = "INVOKE",
-         target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIIII)V"
+         target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIIII)V"
       )
    )
    private void locatorTweaks$renderCustomLocatorMarker(
@@ -1239,7 +1239,7 @@ public abstract class LocatorBarMixin implements ContextualBar {
          boolean isScreenOpen = mc.gui != null && mc.gui.screen() != null;
          boolean shiftDown = !isScreenOpen
             && (
-               (InputConstants.isKeyDown(InputConstants.KEY_LSHIFT) || InputConstants.isKeyDown(InputConstants.KEY_RSHIFT))
+               (mc.getWindow() != null && (InputConstants.isKeyDown(mc.getWindow(), 340) || InputConstants.isKeyDown(mc.getWindow(), 344)))
                   || mc.options != null && mc.options.keyShift.isDown()
             );
 

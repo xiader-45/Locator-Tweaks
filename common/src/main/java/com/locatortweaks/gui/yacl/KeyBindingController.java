@@ -26,7 +26,7 @@ public class KeyBindingController implements Controller<Integer> {
         if (key == InputConstants.UNKNOWN.getValue() || key <= 0) {
             return Component.translatable("key.keyboard.unknown");
         }
-        return InputConstants.Type.KEYBOARD.getOrCreate(key).getDisplayName();
+        return InputConstants.Type.KEYSYM.getOrCreate(key).getDisplayName();
     }
 
     @Override

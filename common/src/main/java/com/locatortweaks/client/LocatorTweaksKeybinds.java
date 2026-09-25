@@ -29,7 +29,7 @@ public class LocatorTweaksKeybinds {
     );
 
     public static void handleKeybinds(Minecraft client) {
-        if (client.player != null && (client.gui == null || client.gui.screen() == null)) {
+        if (client.player != null && (client.screen == null)) {
             while (toggleLocatorKey.consumeClick()) {
                 ModConfig config = ModConfig.getInstance();
                 if (config.barDisplayMode == ModConfig.BarDisplayMode.DISABLED) {

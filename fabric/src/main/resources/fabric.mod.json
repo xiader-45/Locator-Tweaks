@@ -3,27 +3,24 @@
 	"id": "locator-tweaks",
 	"version": "${version}",
 	"name": "Locator Tweaks",
-	"description": "Transforms Minecraft's locator bar into a survival navigation compass: waypoints, death & portal tracking, player heads, cardinal directions, and smart tooltips.",
+	"description": "Minimalist HUD locator tweaks for Minecraft - customize waypoint icons, colors, player heads, cardinal directions, and more.",
 	"authors": [
-		"Xiader45"
+		"xiader-45"
 	],
 	"contact": {
-		"homepage": "https://github.com/xiader-45/Locator-Tweaks",
+		"homepage": "https://modrinth.com/mod/locator-tweaks",
 		"sources": "https://github.com/xiader-45/Locator-Tweaks",
 		"issues": "https://github.com/xiader-45/Locator-Tweaks/issues"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/locator-tweaks/icon.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
-		"main": [
-			"com.locatortweaks.LocatorTweaksFabric"
-		],
 		"client": [
-			"com.locatortweaks.client.LocatorTweaksClient"
+			"com.locatortweaks.fabric.client.LocatorTweaksFabricClient"
 		],
 		"modmenu": [
-			"com.locatortweaks.compat.modmenu.LocatorTweaksModMenu"
+			"com.locatortweaks.fabric.client.ModMenuIntegration"
 		]
 	},
 	"mixins": [
@@ -31,7 +28,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.19.3",
-		"minecraft": "~26.2",
+		"minecraft": "~26.1.2",
 		"java": ">=25",
 		"fabric-api": "*"
 	},

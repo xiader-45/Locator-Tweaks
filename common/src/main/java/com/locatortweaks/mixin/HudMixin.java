@@ -12,8 +12,8 @@ import com.locatortweaks.util.SpawnPointManager;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.Hud;
-import net.minecraft.client.gui.contextualbar.LocatorBar;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.contextualbar.LocatorBarRenderer;
 import net.minecraft.client.waypoints.ClientWaypointManager;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
@@ -31,14 +31,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Optional;
 import java.util.UUID;
 
-@Mixin(Hud.class)
+@Mixin(Gui.class)
 public abstract class HudMixin {
     @Shadow
     @Final
     private Minecraft minecraft;
 
     @Unique
-    private LocatorBar locatorTweaks$topLocatorBar;
+    private LocatorBarRenderer locatorTweaks$topLocatorBar;
 
     @WrapOperation(
         method = "nextContextualInfoState",
@@ -69,10 +69,10 @@ public abstract class HudMixin {
         method = "nextContextualInfoState",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/Hud;willPrioritizeExperienceInfo()Z"
+            target = "Lnet/minecraft/client/gui/Gui;willPrioritizeExperienceInfo()Z"
         )
     )
-    private boolean locatorTweaks$wrapWillPrioritizeExperience(Hud instance, Operation<Boolean> original) {
+    private boolean locatorTweaks$wrapWillPrioritizeExperience(Gui instance, Operation<Boolean> original) {
         ModConfig config = ModConfig.getInstance();
         if (config.locatorPosition == ModConfig.LocatorPosition.BOTTOM) {
             if (config.barDisplayMode == ModConfig.BarDisplayMode.XP_WITH_MARKERS
@@ -106,7 +106,7 @@ public abstract class HudMixin {
             return;
         }
         if (this.locatorTweaks$topLocatorBar == null) {
-            this.locatorTweaks$topLocatorBar = new LocatorBar(this.minecraft);
+            this.locatorTweaks$topLocatorBar = new LocatorBarRenderer(this.minecraft);
         }
         this.locatorTweaks$topLocatorBar.extractBackground(extractor, deltaTracker);
         this.locatorTweaks$topLocatorBar.extractRenderState(extractor, deltaTracker);
@@ -218,5 +218,3 @@ public abstract class HudMixin {
         return original + HudRaiseManager.getRaiseOffset();
     }
 }
-
-

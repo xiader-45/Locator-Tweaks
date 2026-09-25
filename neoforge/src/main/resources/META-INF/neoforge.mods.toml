@@ -1,26 +1,29 @@
 modLoader="javafml"
-loaderVersion="[2,)"
+loaderVersion="[1,)"
 license="CC0-1.0"
-issueTrackerURL="https://github.com/xiader-45/Locator-Tweaks/issues"
-displayURL="https://github.com/xiader-45/Locator-Tweaks"
 
 [[mods]]
 modId="locator_tweaks"
 version="${version}"
 displayName="Locator Tweaks"
+description='''Minimalist HUD locator tweaks for Minecraft - customize waypoint icons, colors, player heads, cardinal directions, and more.'''
 logoFile="assets/locator-tweaks/icon.png"
-authors="Xiader45"
-description='''
-Transforms Minecraft's locator bar into a survival navigation compass: waypoints, death & portal tracking, player heads, cardinal directions, and smart tooltips.
-'''
+authors="xiader-45"
 
 [[mixins]]
 config="locator-tweaks.mixins.json"
 
 [[dependencies.locator_tweaks]]
+modId="neoforge"
+type="required"
+versionRange="[26.1.2,)"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.locator_tweaks]]
 modId="minecraft"
 type="required"
-versionRange="[26.2,26.3)"
+versionRange="[26.1.2,26.2)"
 ordering="NONE"
 side="BOTH"
 

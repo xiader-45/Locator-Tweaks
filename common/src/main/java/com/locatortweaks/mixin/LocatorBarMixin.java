@@ -40,8 +40,8 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.PlayerFaceExtractor;
-import net.minecraft.client.gui.contextualbar.ContextualBar;
-import net.minecraft.client.gui.contextualbar.LocatorBar;
+import net.minecraft.client.gui.contextualbar.ContextualBarRenderer;
+import net.minecraft.client.gui.contextualbar.LocatorBarRenderer;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.player.LocalPlayer;
@@ -71,8 +71,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(LocatorBar.class)
-public abstract class LocatorBarMixin implements ContextualBar {
+@Mixin(LocatorBarRenderer.class)
+public abstract class LocatorBarMixin implements ContextualBarRenderer {
    @Shadow
    @Final
    private Minecraft minecraft;
@@ -259,9 +259,9 @@ public abstract class LocatorBarMixin implements ContextualBar {
    @Unique
    private static int locatorTweaks$getTopY(Minecraft mc) {
       int topY = 10;
-      if (mc != null && mc.gui != null && mc.gui.hud.getBossOverlay() != null) {
+      if (mc != null && mc.gui != null && mc.gui.getBossOverlay() != null) {
          try {
-            Map<?, ?> map = ((BossHealthOverlayAccessor)mc.gui.hud.getBossOverlay()).getEvents();
+            Map<?, ?> map = ((BossHealthOverlayAccessor)mc.gui.getBossOverlay()).getEvents();
             if (map != null && !map.isEmpty()) {
                topY = 12 + map.size() * 19;
             }
@@ -280,9 +280,9 @@ public abstract class LocatorBarMixin implements ContextualBar {
 
    @WrapOperation(
       method = "extractBackground",
-      at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/contextualbar/LocatorBar;top(Lcom/mojang/blaze3d/platform/Window;)I")
+      at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/contextualbar/LocatorBarRenderer;top(Lcom/mojang/blaze3d/platform/Window;)I")
    )
-   private int locatorTweaks$wrapTopBackground(LocatorBar instance, Window window, Operation<Integer> original) {
+   private int locatorTweaks$wrapTopBackground(LocatorBarRenderer instance, Window window, Operation<Integer> original) {
       return ModConfig.getInstance().locatorPosition == ModConfig.LocatorPosition.TOP
          ? locatorTweaks$getTopY(this.minecraft)
          : (Integer)original.call(new Object[]{instance, window});
@@ -290,9 +290,9 @@ public abstract class LocatorBarMixin implements ContextualBar {
 
    @WrapOperation(
       method = "extractRenderState",
-      at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/contextualbar/LocatorBar;top(Lcom/mojang/blaze3d/platform/Window;)I")
+      at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/contextualbar/LocatorBarRenderer;top(Lcom/mojang/blaze3d/platform/Window;)I")
    )
-   private int locatorTweaks$wrapTopRenderState(LocatorBar instance, Window window, Operation<Integer> original) {
+   private int locatorTweaks$wrapTopRenderState(LocatorBarRenderer instance, Window window, Operation<Integer> original) {
       return ModConfig.getInstance().locatorPosition == ModConfig.LocatorPosition.TOP
          ? locatorTweaks$getTopY(this.minecraft)
          : (Integer)original.call(new Object[]{instance, window});
@@ -423,7 +423,7 @@ public abstract class LocatorBarMixin implements ContextualBar {
                }
             }
 
-            boolean isScreenOpen = mc.gui != null && mc.gui.screen() != null;
+            boolean isScreenOpen = mc.screen != null;
             boolean shiftDown = !isScreenOpen
                && (
                   (mc.getWindow() != null && (InputConstants.isKeyDown(mc.getWindow(), 340) || InputConstants.isKeyDown(mc.getWindow(), 344)))
@@ -1057,7 +1057,7 @@ public abstract class LocatorBarMixin implements ContextualBar {
             return Math.max(1.0, 60.0 / zoomDivisor);
          } else {
             try {
-               Camera camera = mc.gameRenderer.mainCamera();
+               Camera camera = mc.gameRenderer.getMainCamera();
                if (camera != null) {
                   float currentFov = camera.getFov();
                   float baseFov = ((Integer)mc.options.fov().get()).intValue();
@@ -1236,7 +1236,7 @@ public abstract class LocatorBarMixin implements ContextualBar {
       float alphaFactor = Math.clamp(ModConfig.getInstance().markerOpacity / 100.0F, 0.0F, 1.0F);
       if (!(alphaFactor <= 0.0F)) {
          Minecraft mc = this.minecraft;
-         boolean isScreenOpen = mc.gui != null && mc.gui.screen() != null;
+         boolean isScreenOpen = mc.screen != null;
          boolean shiftDown = !isScreenOpen
             && (
                (mc.getWindow() != null && (InputConstants.isKeyDown(mc.getWindow(), 340) || InputConstants.isKeyDown(mc.getWindow(), 344)))
@@ -1557,7 +1557,7 @@ public abstract class LocatorBarMixin implements ContextualBar {
       if (mc.gameRenderer == null) {
          return;
       }
-      Camera camera = mc.gameRenderer.mainCamera();
+      Camera camera = mc.gameRenderer.getMainCamera();
       if (camera == null) {
          return;
       }

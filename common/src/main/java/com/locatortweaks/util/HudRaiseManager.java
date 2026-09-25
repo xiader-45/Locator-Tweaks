@@ -26,19 +26,19 @@ public class HudRaiseManager {
             elapsedMs = 100;
         }
 
-        if (now - lastActiveTime > 150) {
+        if (now - lastActiveTime > 400) {
             targetOffset = 0.0f;
             targetProgress = 0.0f;
         }
 
-        float factor = (float) (1.0 - Math.exp(-elapsedMs / 70.0));
+        float factor = (float) (1.0 - Math.exp(-elapsedMs / 100.0));
         currentOffset += (targetOffset - currentOffset) * factor;
         if (Math.abs(targetOffset - currentOffset) < 0.1f) {
             currentOffset = targetOffset;
         }
 
         textProgress += (targetProgress - textProgress) * factor;
-        if (Math.abs(targetProgress - textProgress) < 0.01f) {
+        if (Math.abs(targetProgress - textProgress) < 0.005f) {
             textProgress = targetProgress;
         }
     }
@@ -55,6 +55,6 @@ public class HudRaiseManager {
 
     public static boolean isTextVisible() {
         update();
-        return textProgress > 0.01f;
+        return textProgress > 0.005f;
     }
 }

@@ -444,11 +444,17 @@ public abstract class LocatorBarMixin implements ContextualBar {
             };
 
             boolean hasAnyActive = isNameActive || isDistanceActive || (shiftDown && ModConfig.getInstance().showPlayerHealthOnShift);
+            boolean showTooltips = hasAnyActive || HudRaiseManager.isTextVisible();
+
+            boolean showNames = switch (ModConfig.getInstance().markerInfoMode) {
+               case ALWAYS -> true;
+               case HOLD -> showTooltips;
+               case DISABLED -> false;
+            };
 
             for (PendingMarker mx : locatorTweaks$pendingMarkers) {
-               boolean shouldShow = hasAnyActive || HudRaiseManager.isTextVisible();
-               if (shouldShow && mx.fadeProgress > 0.02F) {
-                  String typeName = (mx.labelName != null && isNameActive && mx.type != null)
+               if (showTooltips && mx.fadeProgress > 0.02F) {
+                  String typeName = (mx.labelName != null && showNames && mx.type != null)
                      ? mx.type.getDisplayName()
                      : null;
 
@@ -488,13 +494,12 @@ public abstract class LocatorBarMixin implements ContextualBar {
                }
             }
 
-            float prog = isTopBar ? (hasAnyActive ? 1.0F : 0.0F) : HudRaiseManager.getTextProgress();
-            if ((hasAnyActive || prog > 0.01F) && !locatorTweaks$pendingTooltips.isEmpty()) {
+            float prog = HudRaiseManager.getTextProgress();
+            if ((hasAnyActive || prog > 0.005F) && !locatorTweaks$pendingTooltips.isEmpty()) {
                int alpha = Math.clamp((long)Math.round(prog * 255.0F), 0, 255);
-               if (alpha < 4) {
+               if (alpha < 2) {
                   locatorTweaks$pendingTooltips.clear();
                } else {
-                  int yOffset = Math.round((1.0F - prog) * 5.0F);
                   resolveTooltips(locatorTweaks$pendingTooltips, guiWidth, 4.0F);
 
                   float smoothFactor = (mc.isPaused() || isResize) ? 1.0F : (1.0F - (float)Math.exp(-dt * 14.0F));
@@ -512,7 +517,7 @@ public abstract class LocatorBarMixin implements ContextualBar {
                            tooltipx.x = newX;
                         }
                      }
-                     this.renderTooltipBox(extractor, tooltipx, yOffset, prog);
+                     this.renderTooltipBox(extractor, tooltipx, prog);
                   }
 
                   locatorTweaks$pendingTooltips.clear();
@@ -754,14 +759,18 @@ public abstract class LocatorBarMixin implements ContextualBar {
    }
 
    @Unique
-   private void renderTooltipBox(GuiGraphicsExtractor extractor, PendingTooltip tooltip, int yOffset, float prog) {
+   private void renderTooltipBox(GuiGraphicsExtractor extractor, PendingTooltip tooltip, float prog) {
       float effectiveProg = Math.clamp(prog * tooltip.markerFade, 0.0F, 1.0F);
-      if (effectiveProg < 0.01F) return;
+      if (effectiveProg < 0.005F) return;
 
-      int curYOffset = Math.round((1.0F - effectiveProg) * 6.0F);
+      float easeProg = effectiveProg * effectiveProg * (3.0F - 2.0F * effectiveProg);
+
+      int slideOffset = Math.round((1.0F - easeProg) * 8.0F);
       int boxLeft = Math.round(tooltip.x);
       boolean isTopBar = ModConfig.getInstance().locatorPosition == ModConfig.LocatorPosition.TOP;
-      int boxTop = isTopBar ? tooltip.baseY - yOffset + (6 - curYOffset) : tooltip.baseY + yOffset - tooltip.height - (6 - curYOffset);
+      int boxTop = isTopBar
+         ? tooltip.baseY + 6 - slideOffset
+         : tooltip.baseY - tooltip.height - 6 + slideOffset;
       int boxBottom = boxTop + tooltip.height;
       int boxRight = boxLeft + tooltip.width;
       int themeColor = tooltip.themeColor != 0 ? tooltip.themeColor : 0x3A4556;
@@ -769,13 +778,13 @@ public abstract class LocatorBarMixin implements ContextualBar {
       int g = (themeColor >> 8) & 0xFF;
       int b = themeColor & 0xFF;
 
-      int bgAlpha = Math.clamp((long)Math.round(effectiveProg * 220.0F), 0, 255);
+      int bgAlpha = Math.clamp((long)Math.round(easeProg * 220.0F), 0, 255);
       int bgR = Math.clamp((int)(r * 0.16f + 10), 0, 255);
       int bgG = Math.clamp((int)(g * 0.16f + 10), 0, 255);
       int bgB = Math.clamp((int)(b * 0.16f + 10), 0, 255);
       int fillColor = (bgAlpha << 24) | (bgR << 16) | (bgG << 8) | bgB;
 
-      int borderAlpha = Math.clamp((long)Math.round(effectiveProg * 200.0F), 0, 255);
+      int borderAlpha = Math.clamp((long)Math.round(easeProg * 200.0F), 0, 255);
       int brR = Math.clamp((int)(r * 0.65f + 30), 0, 255);
       int brG = Math.clamp((int)(g * 0.65f + 30), 0, 255);
       int brB = Math.clamp((int)(b * 0.65f + 30), 0, 255);
@@ -787,7 +796,7 @@ public abstract class LocatorBarMixin implements ContextualBar {
       extractor.fill(boxLeft, boxTop + 1, boxLeft + 1, boxBottom - 1, borderColor);
       extractor.fill(boxRight - 1, boxTop + 1, boxRight, boxBottom - 1, borderColor);
 
-      int alpha = Math.clamp((long)Math.round(effectiveProg * 255.0F), 0, 255);
+      int alpha = Math.clamp((long)Math.round(easeProg * 255.0F), 0, 255);
       int nameColor = (alpha << 24) | 0x00FFFFFF;
 
       int dtR = Math.clamp((int)(r * 0.30f + 160), 0, 255);
@@ -1234,19 +1243,22 @@ public abstract class LocatorBarMixin implements ContextualBar {
                   || mc.options != null && mc.options.keyShift.isDown()
             );
 
+         boolean isTextVisible = HudRaiseManager.isTextVisible();
+         boolean showShiftInfo = shiftDown || isTextVisible;
+
          boolean isNameActive = switch (ModConfig.getInstance().markerInfoMode) {
             case ALWAYS -> true;
-            case HOLD -> shiftDown;
+            case HOLD -> showShiftInfo;
             case DISABLED -> false;
          };
 
          boolean isDistanceActive = switch (ModConfig.getInstance().distanceDisplayMode) {
             case ALWAYS -> true;
-            case HOLD -> shiftDown;
+            case HOLD -> showShiftInfo;
             case DISABLED -> false;
          };
 
-         boolean shouldProcessLabels = waypoint != null && (isNameActive || isDistanceActive || (shiftDown && ModConfig.getInstance().showPlayerHealthOnShift));
+         boolean shouldProcessLabels = waypoint != null && (isNameActive || isDistanceActive || (showShiftInfo && ModConfig.getInstance().showPlayerHealthOnShift));
          String labelName = null;
          PendingHearts pendingHearts = null;
          String distText = null;
@@ -1313,7 +1325,7 @@ public abstract class LocatorBarMixin implements ContextualBar {
                }
             }
 
-            if (!isLodestone && !isDeathPoint && !isSpawnPoint && !isPortalPoint && uuid != null && ModConfig.getInstance().showPlayerHealthOnShift) {
+            if (!isLodestone && !isDeathPoint && !isSpawnPoint && !isPortalPoint && uuid != null && ModConfig.getInstance().showPlayerHealthOnShift && showShiftInfo) {
                Player targetPlayer = mc.level != null ? mc.level.getPlayerByUUID(uuid) : null;
                if (targetPlayer != null) {
                   float hp = targetPlayer.getHealth();
